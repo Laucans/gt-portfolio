@@ -946,3 +946,37 @@ a.contact-card:focus-visible {
 .nav-active { color: var(--clr-accent) !important; }
 
 .text-muted { color: var(--clr-text-muted); }
+
+/* ===== Easter egg overlay ===== */
+.eg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(10, 20, 40, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.eg-canvas {
+  display: block;
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+}
+.eg-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: #fff;
+  font-size: 1.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.eg-close:hover { background: rgba(255,255,255,0.25); }
