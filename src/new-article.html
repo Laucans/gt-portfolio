@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nouvel article — Laurent Canis</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <nav class="nav" aria-label="Navigation principale">
+    <div class="container nav-inner">
+      <a class="nav-logo" href="/">
+        <img src="assets/CANIX_tete_dino_cafe.png" alt="Canix" class="nav-logo-img">
+        Laurent Canis
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="/blog.html">Blog</a></li>
+      </ul>
+      <div class="nav-actions">
+        <span class="auth-indicator" id="auth-indicator"></span>
+        <button class="theme-toggle" aria-label="Basculer le mode sombre">
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="section">
+    <div class="container" style="max-width:48rem">
+      <a href="/blog.html" class="back-link">&larr; Retour au blog</a>
+      <h1 style="margin:1rem 0 1.5rem">Nouvel article</h1>
+      <form id="article-form" class="auth-form">
+        <label for="title">Titre</label>
+        <input type="text" id="title" name="title" required>
+        <label for="body">Contenu</label>
+        <textarea id="body" name="body" rows="12" required></textarea>
+        <p id="article-error" class="form-error" style="display:none"></p>
+        <button type="submit" class="btn btn-primary">Publier</button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    var html = document.documentElement;
+    document.querySelector('.theme-toggle').addEventListener('click', function () {
+      var dark = html.getAttribute('data-theme') !== 'dark';
+      html.setAttribute('data-theme', dark ? 'dark' : 'light');
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    });
+
+    // Redirect if not logged in
+    fetch('/api/me').then(r => r.json()).then(data => {
+      if (!data.loggedIn) { window.location = '/login.html'; return; }
+      var indicator = document.getElementById('auth-indicator');
+      indicator.textContent = data.email;
+      indicator.className = 'auth-indicator auth-on';
+    });
+
+    document.getElementById('article-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var err = document.getElementById('article-error');
+      err.style.display = 'none';
+      fetch('/api/articles', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: document.getElementById('title').value,
+          body: document.getElementById('body').value
+        })
+      }).then(r => r.json()).then(data => {
+        if (data.ok) {
+          window.location = '/article.html?id=' + data.id;
+        } else {
+          err.textContent = data.error || 'Erreur lors de la publication';
+          err.style.display = '';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
