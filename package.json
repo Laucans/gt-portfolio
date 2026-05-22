@@ -1,0 +1,17 @@
+{
+  "name": "laurent-canis-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio statique de Laurent Canis — Engineering Leader, Cloud Infrastructure, MBA HEC Montréal",
+  "author": "Laurent Canis <laurent.canis@hec.ca>",
+  "license": "MIT",
+  "scripts": {
+    "start": "npx serve src -p 3000",
+    "build": "node scripts/build.js",
+    "test": "npx htmlhint src/index.html",
+    "lint": "npx htmlhint src/index.html"
+  },
+  "keywords": ["portfolio", "static-site"],
+  "engines": {
+    "node": ">=18"
+  }
+}
