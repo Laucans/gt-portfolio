@@ -33,9 +33,11 @@
         <li><a href="#education">Formation</a></li>
         <li><a href="#skills">Compétences</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="/blog.html">Blog</a></li>
       </ul>
 
       <div class="nav-actions">
+        <span class="auth-indicator" id="auth-indicator"></span>
         <button class="theme-toggle" aria-label="Basculer le mode sombre" title="Mode sombre / clair">
           <!-- Moon: visible in light mode -->
           <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -567,6 +569,19 @@
 
       backBtn.addEventListener('click', function () {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      /* ---- Auth indicator ---- */
+      fetch('/api/me').then(function (r) { return r.json(); }).then(function (data) {
+        var indicator = document.getElementById('auth-indicator');
+        if (!indicator) return;
+        if (data.loggedIn) {
+          indicator.textContent = data.email;
+          indicator.className = 'auth-indicator auth-on';
+        } else {
+          indicator.innerHTML = '<a href="/login.html">Connexion</a>';
+          indicator.className = 'auth-indicator auth-off';
+        }
       });
 
     })();
