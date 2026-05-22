@@ -136,14 +136,6 @@ body {
   width: auto;
   display: block;
   object-fit: contain;
-  /* Render cream logo as dark silhouette on light nav */
-  filter: brightness(0);
-  transition: filter 0.3s ease;
-}
-
-[data-theme="dark"] .nav-logo-img {
-  /* Show cream logo naturally on dark nav */
-  filter: brightness(0) invert(0.9) sepia(0.15);
 }
 
 .nav-logo:focus-visible {
