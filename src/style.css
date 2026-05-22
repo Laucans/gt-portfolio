@@ -961,6 +961,11 @@ a.contact-card:focus-visible {
   display: block;
   border-radius: 0.75rem;
   box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  /* Scale down on small screens while preserving aspect ratio */
+  max-width: calc(100vw - 2rem);
+  max-height: calc(100vh - 4rem);
+  width: auto;
+  height: auto;
 }
 .eg-close {
   position: absolute;
