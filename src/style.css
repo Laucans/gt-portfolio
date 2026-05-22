@@ -961,11 +961,11 @@ a.contact-card:focus-visible {
   display: block;
   border-radius: 0.75rem;
   box-shadow: 0 8px 40px rgba(0,0,0,0.6);
-  /* Scale down on small screens while preserving aspect ratio */
-  max-width: calc(100vw - 2rem);
-  max-height: calc(100vh - 4rem);
-  width: auto;
+  /* Preserve aspect ratio on any viewport size */
+  aspect-ratio: 900 / 560;
+  width: min(900px, calc(100vw - 2rem));
   height: auto;
+  max-height: calc(100vh - 4rem);
 }
 .eg-close {
   position: absolute;

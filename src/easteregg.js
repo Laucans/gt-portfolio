@@ -27,11 +27,11 @@
   };
 
   // ── Fixed logical canvas size ─────────────────────────────────────────────
-  var CW = 800, CH = 520;
+  var CW = 900, CH = 560;
   var COLS = 8, ROWS = 5;
-  var BRICK_H = 22, BRICK_PAD = 6;
-  var BRICK_TOP = 55;   // y where first brick row starts (below HUD)
-  var PADDLE_Y = CH - 40;
+  var BRICK_H = 24, BRICK_PAD = 7;
+  var BRICK_TOP = 60;   // y where first brick row starts (below HUD)
+  var PADDLE_Y = CH - 45;
 
   function launchGame() {
     if (document.getElementById('eg-overlay')) return;

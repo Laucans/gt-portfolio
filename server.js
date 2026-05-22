@@ -43,8 +43,14 @@ app.use(session({
   cookie: { httpOnly: true, maxAge: 7 * 24 * 3600 * 1000 }
 }));
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'src')));
+// Serve static files — no-cache for JS to avoid stale easter egg
+app.use(express.static(path.join(__dirname, 'src'), {
+  setHeaders(res, filePath) {
+    if (filePath.endsWith('.js')) {
+      res.set('Cache-Control', 'no-store');
+    }
+  }
+}));
 
 // ── Auth ─────────────────────────────────────────────────────────────────────
 
